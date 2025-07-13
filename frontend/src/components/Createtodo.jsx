@@ -1,8 +1,39 @@
 export function Createtodo() {
     return <div>
-        <input type = "text" placeholder = "title"></input><br />
-        <input type = "text" placeholder = "description"></input><br />
+        <input id="title" style={{
+            padding:10,
+            margin: 10
+        }}type = "text" placeholder = "title" onchange={function(e) {
+            const value = e.target.value;
+            setTitle(e.target.value);
+        }}></input><br />
+        <input id="desc" style={{
+            padding:10,
+            margin:10
+        }}type = "text" placeholder = "description" onchange={function(e) {
+            const value = e.target.value;
+            setDescription(e.target.value);
+        }}></input><br />
 
-        <button>Add a todo</button>
+        <button style={{
+            padding: 10,
+            margin: 10
+        }}onclick = {()=>{
+            fetch("http://localhost:3000/todo", { //axios make it more easier to do
+                method: "POST",
+                body: JSON.stringify({
+                    title: title,
+                    description: description
+            
+                }),
+                headers: {
+                    "content-Type": "application/json"
+                }
+            })
+                .then(async function(res) {
+                    const json = await res.json();
+                    alert("todo added");
+                })
+        }}>Add a todo</button>
     </div>
 }
