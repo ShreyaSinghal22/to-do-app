@@ -1,4 +1,7 @@
-export function Createtodo() {
+export function Createtodo(props) {
+const [title,setTitle] = useState("");
+const [description,setDescription] = useState("");
+
     return <div>
         <input id="title" style={{
             padding:10,
@@ -31,9 +34,13 @@ export function Createtodo() {
                 }
             })
                 .then(async function(res) {
-                    const json = await res.json();
+                    const JSON = await res.json();
                     alert("todo added");
                 })
+                props.setTodos([...todos, {
+                    title: title,
+                    description: description,
+                }])
         }}>Add a todo</button>
     </div>
 }
